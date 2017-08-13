@@ -1,5 +1,12 @@
+# Cells version 1
+# pygame+python2.5
+# 
+
+
 import pygame, sys
 from random import *
+
+#-------CLASS---------------------------------------------------
 class Entity(pygame.sprite.Sprite):
 	def __init__(self, position):
 		pygame.sprite.Sprite.__init__(self)
@@ -23,10 +30,10 @@ class Cell(Entity):
 		self.speed = [5*uniform(-1,1), 5*uniform(-1,1)]
 		self.health = 100
 		self.type = "Cell"
-	def move(self):
+	def move(self):                                                #update  self.rect
 		self.rect = self.rect.move(self.speed)
 		group.remove(self)
-		item = pygame.sprite.spritecollide(self, group, False)
+		item = pygame.sprite.spritecollide(self, group, False)         
 		if item:
 			for i in range(len(item)):
 				if item[i].type == "Nutrition":
@@ -69,7 +76,7 @@ class Cell(Entity):
 		temp = self.rect.left, self.rect.top
 		self.rect = self.image.get_rect()
 		self.rect.left, self.rect.top = temp
-		
+#------------------------------------------------------------------------------
 
 pygame.init()
 SCREEN_SIZE = width, height = [640, 480]
@@ -79,8 +86,8 @@ screen = pygame.display.set_mode(SCREEN_SIZE)
 screen.fill(SCREEN_COLOR)
 group = pygame.sprite.Group()
 clock = pygame.time.Clock()
-boss = Cell([200, 200])
-boss.health = 100
+#boss = Cell([200, 200])   测试用的( for testing )
+#boss.health = 100
 
 while True:
 	for event in pygame.event.get():
@@ -105,9 +112,9 @@ while True:
 			item.update()
 			item.move()
 		screen.blit(item.image, item.rect)
-	boss.update()
-	boss.move()
-	screen.blit(boss.image, boss.rect)
+	#boss.update()
+	#boss.move()
+	#screen.blit(boss.image, boss.rect)
 	pygame.display.flip()
 	clock.tick(30)
 
